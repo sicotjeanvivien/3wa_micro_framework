@@ -27,7 +27,7 @@ abstract class Repository
     {
         $conn = $this->connect();
         $result = $conn->prepare($query);
-        foreach ($params as $key => $param) $result->bindParam($key, $param);
+        foreach ($params as $key => $param) $result->bindValue($key, $param);
         $result->execute();
         $conn = null;
         return $result ;
@@ -40,9 +40,8 @@ abstract class Repository
     protected function checkTableExists($table): bool
     {
         $tableNotExist = true;
-        $query = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '$table' ;";
-        $result = $this->executeQuery($query)->fetchAll(PDO::FETCH_CLASS, "Article");
-
+        $query = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '$table' AND TABLE_SCHEMA = 'micro_framework' ;";
+        $result = $this->executeQuery($query)->fetchAll(PDO::FETCH_BOTH);
         if (is_countable($result) && count($result) > 0) $tableNotExist = false;
         return $tableNotExist;
     }
