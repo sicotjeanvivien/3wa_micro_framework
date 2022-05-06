@@ -30,9 +30,7 @@ class ArticleRepository extends Repository
     {
         $this->createTableIfNotExistes($this->table, self::ARTICLE_TABLE, self::ARTICLE_INSERT);
         $query = "SELECT * FROM $this->table ;";
-        var_dump("lol");
         $result = $this->executeQuery($query);
-
         return ($result->fetchAll(PDO::FETCH_CLASS, $this->table));
     }
 }
