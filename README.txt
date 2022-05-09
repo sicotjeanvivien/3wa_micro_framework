@@ -252,7 +252,8 @@ indication:
 ################################
 
 ==> Création d'un bouton de suppression d'un article
-        - créer un bouton permettant de supprimer un article. Penser à vérifier que l'article existe. L'utilisateur doit être connecté.  
+        - dans le <table> de  la page /template/view/article.php, ajouter une colonne "Action"
+        - créer un bouton "supprimer" dans la colonne "Action" du <table> de la /template/view/article.php permettant de supprimer un article. Penser à vérifier que l'article existe. L'utilisateur doit être connecté.  
 
 
 ################################
