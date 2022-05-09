@@ -2,6 +2,17 @@
 
 <h1>Add_Article</h1>
 
+<?php
+if (isset($options["responseType"])) {
+    if ($options["responseType"] === "error") {
+        echo "<div class='alert alert-danger' role='alert'>Formulaire incorrecte</div>";
+    }
+    if ($options["responseType"] === "success") {
+        echo "<div class='alert alert-success' role='alert'>Votre article a bien été créé.</div>";
+    }
+}
+?>
+
 <div class="row">
     <form method="POST">
         <div class="mb-3">

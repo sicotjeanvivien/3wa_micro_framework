@@ -17,14 +17,27 @@ class ArticleController extends Controller
     {
         $articleRepository = new ArticleRepository("article");
         $articles = $articleRepository->findAll();
-        $this->renderView(["articles"=> $articles]);
+        $this->renderView(["articles" => $articles]);
     }
 
     public function add()
     {
+        $responseType = "";
         if (isset($_SESSION["user_is_connect"]) && $_SESSION["user_is_connect"]) {
-            $this->setPath("./../template/view/add_article.php");   
-            if (isset($_POST["article_title"]) && isset($_POST["article_content"])) {
+            $this->setPath("./../template/view/add_article.php");
+
+            $responseType = "error";
+            $article_title =  isset($_POST["article_title"]) ? trim($_POST["article_title"]) :  null;
+            $article_content = isset($_POST["article_content"]) ? $article_content = trim($_POST["article_content"]) : null;
+
+            if (
+                !empty($article_title)
+                && !empty($article_content)
+                && strlen($article_title)
+                && strlen($article_title) < 257
+                && strlen($article_content)
+            ) {
+                $responseType = "success";
                 $article = new Article();
                 $article->setTitle($_POST["article_title"]);
                 $article->setContent($_POST["article_content"]);
@@ -33,7 +46,27 @@ class ArticleController extends Controller
                 $articleRepository->insert($article);
             }
         }
-        $this->renderView();
+        $this->renderView(["responseType" => $responseType]);
     }
 
+    public function deleted()
+    {
+        $responseType = "";
+        $articleRepository = new ArticleRepository("article");
+        if (
+            isset($_SESSION["user_is_connect"])
+            && $_SESSION["user_is_connect"]
+            && isset($_GET["id"])
+            ) {
+            $responseType = "error";
+            if (!empty($article = $articleRepository->find($_GET["id"]))) {
+                $articleRepository->deleted($article);
+                $responseType = "success";
+            }
+        }
+        $this->renderView([
+            "articles" => $articleRepository->findAll(),
+            "responseType" => $responseType
+        ]);
+    }
 }

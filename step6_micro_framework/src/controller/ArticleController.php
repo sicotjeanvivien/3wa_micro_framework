@@ -22,18 +22,31 @@ class ArticleController extends Controller
 
     public function add()
     {
+        $responseType = "";
         if (isset($_SESSION["user_is_connect"]) && $_SESSION["user_is_connect"]) {
-            $this->setPath("./../template/view/add_article.php");   
-            if (isset($_POST["article_title"]) && isset($_POST["article_content"])) {
-                $article = new Article();
-                $article->setTitle($_POST["article_title"]);
-                $article->setContent($_POST["article_content"]);
+            $this->setPath("./../template/view/add_article.php");
+
+            $responseType = "error";
+            $article_title =  isset($_POST["article_title"]) ? trim($_POST["article_title"]) :  null;
+            $article_content = isset($_POST["article_content"]) ? $article_content = trim($_POST["article_content"]) : null;
+            
+            if (
+                !empty($article_title)
+                && !empty($article_content)
+                && strlen($article_title)
+                && strlen($article_title) < 257
+                && strlen($article_content)
+                ) {
+                    $responseType = "success";
+                    $article = new Article();
+                    $article->setTitle($_POST["article_title"]);
+                    $article->setContent($_POST["article_content"]);
                 $article->setPublishedDate((new DateTime("now"))->format("Y-m-d h:i:s"));
                 $articleRepository = new ArticleRepository("article");
                 $articleRepository->insert($article);
             }
         }
-        $this->renderView();
+        $this->renderView(["responseType" => $responseType]);
     }
 
 }

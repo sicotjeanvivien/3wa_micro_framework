@@ -28,7 +28,6 @@ switch ($page) {
         $article->add();
         break;
     case 'deleted_article':
-        var_dump('lol');
         $article = new ArticleController();
         $article->deleted();
         break;

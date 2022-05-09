@@ -51,7 +51,7 @@ class ArticleRepository extends Repository
         return ($this->executeQuery($query))->fetchAll(PDO::FETCH_CLASS, "Article");
     }
 
-    public function find(int $id): Article
+    public function find(int $id): ?Article
     {
         $this->createTableIfNotExistes($this->table, self::ARTICLE_TABLE, self::ARTICLE_INSERT);
         $article = null;
@@ -72,6 +72,15 @@ class ArticleRepository extends Repository
             ":content" => $article->getContent(),
             ":published_date" => $article->getPublishedDate()
         ];
+        $this->executeQuery($query, $params);
+    }
+    
+    public function deleted(Article $article):void
+    {
+        $this->createTableIfNotExistes($this->table, self::ARTICLE_TABLE, self::ARTICLE_INSERT);
+
+        $query = "DELETE FROM article WHERE id = :id";
+        $params = [":id" => $article->getId()];
         $this->executeQuery($query, $params);
     }
 }
