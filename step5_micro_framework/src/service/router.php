@@ -23,10 +23,6 @@ switch ($page) {
         $article = new ArticleController();
         $article->index();
         break;
-    case 'add_article':
-        $article = new ArticleController();
-        $article->add();
-        break;
     case 'connexion':
         $connexion = new ConnexionController();
         $connexion->index();

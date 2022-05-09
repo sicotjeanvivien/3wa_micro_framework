@@ -11,6 +11,7 @@
                     <th scope="col">Titre</th>
                     <th scope="col">Date de publication</th>
                     <th scope="col">Content</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,6 +22,9 @@
                             <td><?php echo $article->getTitle() ?></td>
                             <td><?php echo $article->getPublishedDate() ?></td>
                             <td><?php echo $article->getContent() ?></td>
+                            <td>
+                                <a class="btn btn-danger" href="/?page=deleted_article&id=<?php echo $article->getId();?>">Supprimer</a> 
+                            </td>
                         </tr>
                 <?php }
                 } ?>

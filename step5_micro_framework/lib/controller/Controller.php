@@ -16,9 +16,4 @@ abstract class Controller
     {
         require $this->path;
     }
-
-    public function setPath(string $path)
-    {
-        $this->path = $path;
-    }
 }

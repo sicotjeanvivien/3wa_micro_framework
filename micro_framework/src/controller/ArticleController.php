@@ -36,4 +36,15 @@ class ArticleController extends Controller
         $this->renderView();
     }
 
+    public function deleted()
+    {
+        $articleRepository = new ArticleRepository("article");
+        var_dump($_GET);
+        if (!empty($articleRepository->find($_GET["id"]))) {
+            # code...
+        }
+        header("/?page=article");
+        $this->renderView(["articles"=> $articleRepository->findAll()]);
+    }
+
 }

@@ -2,10 +2,6 @@
 
 <H1>Article</H1>
 
-<?php if (isset($_SESSION["user_is_connect"]) && $_SESSION["user_is_connect"]) { ?>
-    <a href="/?page=add_article" class="btn btn-primary">Ajouter un article</a>
-<?php } ?>
-
 <table class="table">
     <thead>
         <tr>

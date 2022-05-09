@@ -27,6 +27,11 @@ switch ($page) {
         $article = new ArticleController();
         $article->add();
         break;
+    case 'deleted_article':
+        var_dump('lol');
+        $article = new ArticleController();
+        $article->deleted();
+        break;
     case 'connexion':
         $connexion = new ConnexionController();
         $connexion->index();

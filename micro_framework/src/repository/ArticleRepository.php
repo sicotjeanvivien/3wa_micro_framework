@@ -45,21 +45,33 @@ class ArticleRepository extends Repository
     }
 
     public function findAll(): array
-    {        
+    {
         $this->createTableIfNotExistes($this->table, self::ARTICLE_TABLE, self::ARTICLE_INSERT);
         $query = "SELECT * FROM $this->table ;";
         return ($this->executeQuery($query))->fetchAll(PDO::FETCH_CLASS, "Article");
     }
-    
+
+    public function find(int $id): Article
+    {
+        $this->createTableIfNotExistes($this->table, self::ARTICLE_TABLE, self::ARTICLE_INSERT);
+        $article = null;
+        $query = "SELECT * FROM $this->table WHERE id = :id;";
+        $params = [":id" => $id];
+        if (count($result = ($this->executeQuery($query, $params))->fetchAll(PDO::FETCH_CLASS, "article")) > 0) {
+            $article = $result[0];
+        }
+        return $article;
+    }
+
     public function insert(Article $article)
     {
         $this->createTableIfNotExistes($this->table, self::ARTICLE_TABLE, self::ARTICLE_INSERT);
         $query = "INSERT INTO article(title, content, published_date) VALUE(:title, :content, :published_date);";
         $params = [
-            ":title"=> $article->getTitle(),
-            ":content"=> $article->getContent(), 
-            ":published_date"=> $article->getPublishedDate()
-        ];        
+            ":title" => $article->getTitle(),
+            ":content" => $article->getContent(),
+            ":published_date" => $article->getPublishedDate()
+        ];
         $this->executeQuery($query, $params);
     }
 }

@@ -17,25 +17,6 @@ class ArticleController extends Controller
     {
         $articleRepository = new ArticleRepository("article");
         $articles = $articleRepository->findAll();
-        $this->renderView(["articles"=> $articles]);
+        $this->renderView(["articles" => $articles]);
     }
-
-    public function add()
-    {
-        if (isset($_SESSION["user_is_connect"]) && $_SESSION["user_is_connect"]) {
-            $this->setPath("./../template/view/add_article.php");
-            if (isset($_POST["article_title"]) && isset($_POST["article_content"])) {
-            
-                $article = new Article();
-                $article->setTitle($_POST["article_title"]);
-                $article->setContent($_POST["article_content"]);
-                $article->setPublishedDate((new DateTime("now"))->format("Y-m-d h:i:s"));
-
-                $articleRepository = new ArticleRepository("article");
-                $articleRepository->insert($article);
-            }         
-        }
-        $this->renderView();
-    }
-
 }
