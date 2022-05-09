@@ -246,3 +246,18 @@ indication:
 ==>Création d'une page réservé au admin
         -créer une page /view/add_artcile.php dont l'accès est limité à l'administrateur permettant d'ajouter des artciles dans la BDD (base de données)
   
+
+################################
+#   ETAPE 7 - Deleted Article  #
+################################
+
+==> Création d'un bouton de suppression d'un article
+        - créer un bouton permettant de supprimer un article. Penser à vérifier que l'article existe. L'utilisateur doit être connecté.  
+
+
+################################
+#   ETAPE 8 - Update  Article  #
+################################
+
+==> Création d'une page pour la modification d'un article  /view/update_artcile.php
+    -créer une page dont l'accès est limité à l'administrateur permettant de modifier un article  existant dans la base de données. Créer un bouton d'accés pour chaque article sur la page /template/view/article.php
